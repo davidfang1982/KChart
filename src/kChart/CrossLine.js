@@ -118,7 +118,7 @@ define(
                     this.priceText.style.y=style.y;
                     this.priceText.style.text=style.price;
                     //强制刷新text，此处需要修改shape/Text getRect方法源码
-                    this.priceText.style.refresh=true;
+                    this.priceText.modSelf();
                 }
 
                 //时间背景
@@ -161,7 +161,7 @@ define(
                     this.timeText.style.x=style.x;
                     this.timeText.style.text=style.time;
                     //强制刷新text，此处需要修改shape/Text getRect方法源码
-                    this.timeText.style.refresh=true;
+                    this.timeText.modSelf();
                 }
 
                 //绘制一个矩形 zlevel=3，this.tipRect
@@ -209,7 +209,7 @@ define(
                     this.tipText.style.y=ret.y;
                     this.tipText.style.text=style.time+"\n"+style.price;
                     //强制刷新text，此处需要修改shape/Text getRect方法源码
-                    this.tipText.style.refresh=true;
+                    this.tipText.modSelf();
                 }
 
                 if(style.index<0)
