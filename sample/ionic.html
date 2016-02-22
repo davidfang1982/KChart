@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ionic Test</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <link href="css/ionic.min.css" rel="stylesheet">
+
+  </head>
+  <body ng-app="todo"  ng-controller="TodoCtrl" style="background:black;">
+      <div class="bar bar-header bar-dark">
+        <a class="button">M1</a>
+        
+        <button class="button icon ion-plus-round" onclick="scale(0);"></button> 
+        <button class="button icon ion-minus-round" onclick="scale(1);"></button> 
+        
+        <!--update-->
+        <button class="button icon ion-refresh" onclick="update();" style="color: yellow;"></button>
+
+        <!--line-->
+        <button class="button icon ion-arrow-graph-up-right" onclick="priceLine();"></button> 
+        <!--cross-->
+        <button class="button icon ion-grid" onclick="crossLine();"></button> 
+
+         <!--line-->
+        <button class="button icon ion-arrow-resize"></button> 
+        <button class="button icon ion-trash-b"></button> 
+
+        <div class="title"></div>
+        <button class="button icon ion-ios-pulse-strong" style="color: yellow;"></button>
+        
+      </div>
+    
+      <div id="main" class="content has-header" style="background:black;height:1000px;" >
+          
+      </div>
+
+
+    <div class="tabs tabs-icon-top tabs-dark">
+      <a class="tab-item" href="#">
+        <i class="icon ion-ios-settings-strong"></i>
+        行情
+      </a>
+      <a class="tab-item" href="#" style="color:yellowgreen;">
+        <i class="icon ion-ios-pulse-strong"></i>
+        图表
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-ios-cart"></i>
+        交易
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-android-time"></i>
+        历史
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-gear-a"></i>
+        设置
+      </a>
+    </div>
+  <script src="js/jquery.js"></script>
+  <script src="js/esl.js"></script>
+  <script src="js/ionic.bundle.min.js"></script>
+  <script src="js/cmbc.ionic.js"></script>
+  </body>
+</html>

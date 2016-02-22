@@ -1,0 +1,21 @@
+{
+  "name": "KChart",
+  "file": "KChart",
+  "version": "0.1.0",
+  "description": "KChart show stock prices base on zrender",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-strip": "~0.2.1",
+    "jshint-stylish": "^2.1.0"
+  },
+  "dependencies": {
+    "express": "3.x"
+  }
+}

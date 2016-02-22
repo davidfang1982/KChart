@@ -1,2 +1,2 @@
 # KChart
-模拟MetaTrader，基于zrender的K线图
+基于zrender实现的K线图，支持多种辅助线
