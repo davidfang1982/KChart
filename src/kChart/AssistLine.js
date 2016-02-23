@@ -17,6 +17,7 @@ define(function (require) {
             chartGroup.cPainter.onPaint(this);
             chartGroup.cPainter.onScale(this);
             this.pName=options.pName||"";
+            //this.moveWindow=options.moveWindow||false;
         };
 
         //计算中点位置
@@ -178,6 +179,7 @@ define(function (require) {
                         //距离canvas的距离
                         var x=e.event.offsetX||e.event.zrenderX;
                         var y=e.event.offsetY||e.event.zrenderY;
+
                         var drift=0;//painter的偏移量
                         var ret={x:0,y:0};//记录吸附后计算的坐标
                         ret=chartGroup.cPainter.adsorb(x,y);//获取吸附后的坐标
@@ -239,6 +241,37 @@ define(function (require) {
                     }
                         current.buildLines();
                         zr.render();
+                        if(dragging===pointMid)return;
+
+                        //显示移动框
+                        var _rx,_ry,_rx1,_ry1,_outx=10,_outy=10,devicePixelRatio=window.devicePixelRatio||1,
+                        rect=100*devicePixelRatio;
+                        if(e.event.zrenderX!==undefined){
+                            _rectx=(x)-50;
+                            _recty=(y)+50;
+                            _rectx=Math.round(_rectx)*2;
+                            _recty=Math.round(_recty)*2-100;
+                            _rx=_rx1=_rectx;
+                            _ry=_recty-100;
+                            _ry1=_recty-line.position[1]-100;
+                        }else{
+                            _rectx=dragging.style.x+dragging.position[0]-50+drift;
+                            _recty=dragging.style.y+dragging.position[1]-50;
+                            _rx=_rx1=_rectx;
+                            _ry=_ry1=_recty;
+                        }
+                        if(_rx<rect||_ry<20){
+                            _outx=chartGroup.cPainter.pWidth*devicePixelRatio-rect-20;
+                        }
+                        
+                        var ctx=zr.painter.getLayers()[1].ctx;
+                        var imgData=ctx.getImageData(_rx,_ry,rect,rect);
+                        ctx.putImageData(imgData,_outx,_outy);
+
+                        ctx=zr.painter.getLayers()[2].ctx;
+                        imgData=ctx.getImageData(_rx1,_ry1,rect,rect);
+                        ctx.putImageData(imgData,_outx,_outy);
+                       
                 });
 
                 this.zr.on("dragend",function(e){
@@ -318,20 +351,21 @@ define(function (require) {
                     style : {
                         x : x,
                         y : y,
-                        r : 5,
+                        r : 40,
                         brushType : 'both',
-                        color : 'rgba(220, 20, 60, 0.8)',          // rgba supported
+                        color : 'rgba(0, 0, 0, 0)',          // rgba supported
                         strokeColor : 'red',  // getColor from default palette
-                        lineWidth : 5,
+                        lineWidth : 0,
                         text :text+index,
-                        textPosition :'inside'
+                        textPosition :'top'
+                    },
+                    highlightStyle:{
+                        lineWidth : 0,
                     },
                     hoverable : true,   // default true
                     draggable : true,   // default false
                     clickable : true,   // default false
-                    onclick: function(params){
-                        //alert(params.target._name);
-                    },
+                   
                     /* 封装支持事件，见shape/base, config.EVENT*/
                     //onmousemove : function(e){console.log('onmousemove',e)},
                     //onmouseover : function(e){console.log('onmouseover',e)},

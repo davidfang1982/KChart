@@ -18,6 +18,7 @@ define(
             //绘制黄金分割线
             dispose:function(){
                 var shape=this.zr.storage.get('quota');
+                if(!shape)return;
                 this.chartGroup.removeChild(shape);
                 this.disposed=true;
                 this.chartGroup.cPainter.rmPaint(this);

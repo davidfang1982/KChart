@@ -10,7 +10,7 @@
   </head>
   <body ng-app="todo"  ng-controller="TodoCtrl" style="background:black;">
       <div class="bar bar-header bar-dark">
-        <a class="button">M1</a>
+        <a class="button" onclick="quota();">M1</a>
         
         <button class="button icon ion-plus-round" onclick="scale(0);"></button> 
         <button class="button icon ion-minus-round" onclick="scale(1);"></button> 
@@ -38,7 +38,7 @@
 
 
     <div class="tabs tabs-icon-top tabs-dark">
-      <a class="tab-item" href="#">
+      <a class="tab-item" href="#" onclick="delQuota();">
         <i class="icon ion-ios-settings-strong"></i>
         行情
       </a>
@@ -46,11 +46,11 @@
         <i class="icon ion-ios-pulse-strong"></i>
         图表
       </a>
-      <a class="tab-item" href="#">
+      <a class="tab-item" href="#" onclick="assistLine();">
         <i class="icon ion-ios-cart"></i>
         交易
       </a>
-      <a class="tab-item" href="#">
+      <a class="tab-item" href="#" onclick="addGoldLine();">
         <i class="icon ion-android-time"></i>
         历史
       </a>

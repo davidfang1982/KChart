@@ -1,19 +1,25 @@
     var fileLocation = './js/kChart';
     require.config({
-        paths:{ 
-            zrender: fileLocation,
-            'zrender/kChart/PriceLine': fileLocation,
-            'zrender/kChart/CrossLine': fileLocation,
-            'zrender/kChart/AssistLine': fileLocation,
-            'zrender/kChart/FibonacciLine': fileLocation,
-            'zrender/kChart/Quota': fileLocation,
-            'zrender/kChart/Candle': fileLocation,
-            'zrender/kChart/CandleQueue': fileLocation,
-            'zrender/kChart/CandleDate': fileLocation,
-            'zrender/kChart/KAxis': fileLocation,
-            'zrender/kChart/CandlePainter': fileLocation,
-            'zrender/Group':fileLocation
-        }
+        // paths:{ 
+        //     zrender: fileLocation,
+        //     'zrender/kChart/PriceLine': fileLocation,
+        //     'zrender/kChart/CrossLine': fileLocation,
+        //     'zrender/kChart/AssistLine': fileLocation,
+        //     'zrender/kChart/FibonacciLine': fileLocation,
+        //     'zrender/kChart/Quota': fileLocation,
+        //     'zrender/kChart/Candle': fileLocation,
+        //     'zrender/kChart/CandleQueue': fileLocation,
+        //     'zrender/kChart/CandleDate': fileLocation,
+        //     'zrender/kChart/KAxis': fileLocation,
+        //     'zrender/kChart/CandlePainter': fileLocation
+        // }
+        packages: [
+            {
+                name: 'zrender',
+                location: '../src',
+                main: 'zrender'
+            }
+        ]
     });
     
     // Step:4 动态加载zrender然后在回调函数中开始使用
@@ -73,7 +79,7 @@
             for(var i=0;i<100;i++){
                 var tmp=getRandom();
                 data.push(tmp);
-                console.log(tmp.join("|"));
+                //console.log(tmp.join("|"));
             }
             var candleQueue=new CandleQueue(["20160118161955","M1","USDCHN"], data);
             
@@ -132,7 +138,7 @@
                 $("#main>div").css("cursor","col-resize");
             });
             zr.on("mousemove",function(param){
-                console.log("mousemove..."+(param.event.zrenderX-zrenderX));
+                //console.log("mousemove..."+(param.event.zrenderX-zrenderX));
                 if(config.crossLineOpen||config.assistLineMove)return;//不能移动
                 
                 if(config.moveflag){
@@ -305,11 +311,13 @@
                     }
                 },
                 quota:function(){
+                    if(quota)return;
                     quota=new Quota(zr);
                     zr.render();
                 },
                 delQuota:function(){
                     quota.dispose();
+                    quota=undefined;
                     zr.render();
                 }
             };

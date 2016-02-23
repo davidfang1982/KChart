@@ -1,39 +1,45 @@
- var fileLocation = './js/zrenderSrc';
+ var fileLocation = './js/kChart';
     require.config({
         paths:{ 
             zrender: fileLocation,
-            'zrender/shape/Rectangle': fileLocation,
-            'zrender/shape/Line': fileLocation,
-            'zrender/shape/Text': fileLocation,
-            'zrender/tool/util': fileLocation,
-            'zrender/shape/Base': fileLocation,
-            'zrender/shape/Circle': fileLocation,
-            'zrender/shape/PriceLine': './js/PriceLine',
-            'zrender/shape/CrossLine': './js/CrossLine',
-            'zrender/shape/AssistLine': './js/AssistLine',
-            'zrender/shape/Candle': './js/Candle',
-            'zrender/shape/CandleQueue': './js/CandleQueue',
-            'zrender/shape/CandleDate': './js/CandleDate',
-            'zrender/shape/KAxis': './js/KAxis',
-            'zrender/shape/CandlePainter': './js/CandlePainter',
-            'zrender/Group':fileLocation
+            'zrender/kChart/PriceLine': fileLocation,
+            'zrender/kChart/CrossLine': fileLocation,
+            'zrender/kChart/AssistLine': fileLocation,
+            'zrender/kChart/FibonacciLine': fileLocation,
+            'zrender/kChart/Quota': fileLocation,
+            'zrender/kChart/Candle': fileLocation,
+            'zrender/kChart/CandleQueue': fileLocation,
+            'zrender/kChart/CandleDate': fileLocation,
+            'zrender/kChart/KAxis': fileLocation,
+            'zrender/kChart/CandlePainter': fileLocation
         }
+        //=================================================
+        // packages: [
+        //     {
+        //         name: 'zrender',
+        //         location: '../src',
+        //         main: 'zrender'
+        //     }
+        // ]
     });
     
     function init(){
     require(
-        ['zrender','zrender/shape/CrossLine','zrender/shape/AssistLine','zrender/shape/PriceLine','zrender/shape/Candle','zrender/shape/KAxis','zrender/shape/CandleQueue','zrender/shape/CandlePainter'],
+        ['zrender','zrender/kChart/CrossLine','zrender/kChart/Quota','zrender/kChart/FibonacciLine','zrender/kChart/AssistLine','zrender/kChart/PriceLine','zrender/kChart/Candle','zrender/kChart/KAxis','zrender/kChart/CandleQueue','zrender/kChart/CandlePainter'],
         function(zrender) {
             var zr = zrender.init(document.getElementById('main'));
-            var Rectangle = require('zrender/shape/Rectangle');
-            var Candle = require('zrender/shape/Candle');
-            var KAxis = require('zrender/shape/KAxis');
-            var PriceLine = require('zrender/shape/PriceLine');
-            var CrossLine = require('zrender/shape/CrossLine');
-            var AssistLine = require('zrender/shape/AssistLine');
-            var CandleQueue = require('zrender/shape/CandleQueue');
+            var Candle = require('zrender/kChart/Candle');
+            var KAxis = require('zrender/kChart/KAxis');
+            var PriceLine = require('zrender/kChart/PriceLine');
+            var CrossLine = require('zrender/kChart/CrossLine');
+            var AssistLine = require('zrender/kChart/AssistLine');
+            var Quota = require('zrender/kChart/Quota');
+            var FibonacciLine = require('zrender/kChart/FibonacciLine');
+            var CandleQueue = require('zrender/kChart/CandleQueue');
             var Group = require('zrender/Group');
-            var CandlePainter = require('zrender/shape/CandlePainter');
+            var CandlePainter = require('zrender/kChart/CandlePainter');
+            //
+            var quota;
             var config={
                 crossLineOpen:false,
                 assistLineMove:false,
@@ -119,7 +125,8 @@
             var offsetX,zrenderX;
             zr.on("mousedown",function(param){
                 if(config.crossLineOpen){
-                    crossLineChange(param.event.layerX||param.event.x,param.event.layerY||param.event.x);
+                    crossLineChange(param.event.layerX||param.event.x||param.event.zrenderX,
+                        param.event.layerY||param.event.y||param.event.zrenderY);
                     return;//不能移动
                 }
                 if(config.assistLineMove){
@@ -141,6 +148,8 @@
                     movement=(movement==undefined||isNaN(movement))?(param.event.offsetX-offsetX):movement;
                     movement=(movement==undefined||isNaN(movement))?(param.event.zrenderX-zrenderX):movement;
                     var flag=candlePainter.translate(movement);
+                    zrenderX=param.event.zrenderX;
+                    offsetX=param.event.offsetX;
                     flag||zr.render();
                 }
             });
@@ -200,10 +209,27 @@
                 };
                 zr.render();
             }
-
+            var fibonacciLineIndex=0;
+            function addGoldLine(){
+                var fibonacciLine = new FibonacciLine({
+                    id:"fibonacciLine"+fibonacciLineIndex,
+                    style: {
+                        index:fibonacciLineIndex,
+                        xStart: 100,
+                        yStart: 100,
+                        xEnd: 200,
+                        yEnd: 200
+                    }
+                },zr,config);
+                fibonacciLineIndex++;
+                zr.addGroup(fibonacciLine);
+                config.assistLineMove=false;
+                zr.render();
+            }
             window.zrExports={
                 assistLine:addAssistLine,
                 deleteAssistLine:delAssistLine,
+                addGoldLine:addGoldLine,
                 update:function(flag){
                     if(flag){
                         setTimeout(update,1000);
@@ -241,8 +267,7 @@
                                 rectHeight:20,
                                 rectColor:'cyan'
                             }
-                        });
-                        candlePainter.onUpdate(priceLine);
+                        },zr);
                         zr.addGroup(priceLine);
                         zr.render();
                     }else{
@@ -271,8 +296,8 @@
                                 rectWidth:kAxis.getWidth(),
                                 rectHeight:20,
                                 rectColor:'#FFF',
-                                tipRectWidth:200,
-                                tipRectHeight:100,
+                                tipRectWidth:65,
+                                tipRectHeight:50,
                                 tipRectColor:"#C7BA99"
                             }
                         });
@@ -284,6 +309,16 @@
                         zr.render();
                         config.crossLineOpen=false;
                     }
+                },
+                quota:function(){
+                    if(quota)return;
+                    quota=new Quota(zr);
+                    zr.render();
+                },
+                delQuota:function(){
+                    quota.dispose();
+                    quota=undefined;
+                    zr.render();
                 }
             };
             document.getElementById("main").style.height="860px";
@@ -314,6 +349,18 @@
     }
     function deleteAssistLine(){
         window.zrExports.deleteAssistLine();
+    }
+    function addGoldLine(){
+        window.zrExports.addGoldLine();
+    }
+    function quota(){
+        window.zrExports.quota();
+    }
+    function delQuota(){
+        window.zrExports.delQuota();
+    } 
+    function delGoldLine(){
+        window.zrExports.delGoldLine();
     }
     document.body.onload=function(){
         var height=$(window).height();
