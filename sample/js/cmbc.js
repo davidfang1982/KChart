@@ -24,10 +24,10 @@
     
     // Step:4 动态加载zrender然后在回调函数中开始使用
     require(
-        ['zrender','zrender/kChart/CrossLine','zrender/kChart/Quota','zrender/kChart/AssistLine','zrender/kChart/FibonacciLine','zrender/kChart/PriceLine','zrender/kChart/Candle','zrender/kChart/KAxis','zrender/kChart/CandleQueue','zrender/kChart/CandlePainter'],
+        ['zrender','zrender/kChart/Theme','zrender/kChart/CrossLine','zrender/kChart/Quota','zrender/kChart/AssistLine','zrender/kChart/FibonacciLine','zrender/kChart/PriceLine','zrender/kChart/Candle','zrender/kChart/KAxis','zrender/kChart/CandleQueue','zrender/kChart/CandlePainter'],
         function(zrender) {
             var zr = zrender.init(document.getElementById('main'));
-           
+            var Theme = require('zrender/kChart/Theme');
             var Candle = require('zrender/kChart/Candle');
             var KAxis = require('zrender/kChart/KAxis');
             var PriceLine = require('zrender/kChart/PriceLine');
@@ -39,6 +39,8 @@
             var Group = require('zrender/Group');
             var CandlePainter = require('zrender/kChart/CandlePainter');
             var quota;
+            //set theme
+            new Theme(zr).fill();
             var config={
                 crossLineOpen:false,
                 assistLineMove:false,

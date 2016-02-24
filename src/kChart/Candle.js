@@ -2,8 +2,9 @@
 define(function (require) {
         var Base = require('../shape/Base');
         
-        var Candle = function (options) {
+        var Candle = function (options,zr) {
             Base.call(this, options);
+            theme=zr.theme;
         };
 
         Candle.prototype =  {
@@ -41,7 +42,7 @@ define(function (require) {
                 //绘制直线
                 ctx.beginPath();
                 ctx.moveTo(style.x, style.top+style.y);
-                style._color=style.white?'yellow':"yellow";
+                style._color=style.white?(theme.Candle_down_bg||'yellow'):(theme.Candle_up_bg||'yellow');
                 ctx.strokeStyle=style._color;
                 ctx.lineWidth=1;
                 ctx.lineTo(style.x, style.bottom+style.y);
@@ -57,8 +58,8 @@ define(function (require) {
                 ctx.lineTo(rectMoveto.x, rectMoveto.y + rectHeight);
                 ctx.lineTo(rectMoveto.x, rectMoveto.y);
                 ctx.lineWidth=2;
-                ctx.fillStyle=style.white?'white':'black';
-                ctx.strokeStyle='yellow';
+                ctx.fillStyle=style.white?(theme.Candle_down_bg||'white'):(theme.Candle_up_bg||'black');
+                ctx.strokeStyle=style.white?(theme.Candle_down_bg||'yellow'):(theme.Candle_up_bg||'yellow');
                 ctx.fill();
                 ctx.stroke();
 

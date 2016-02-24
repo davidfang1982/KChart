@@ -7,8 +7,9 @@ define(
         //chartGroup：将k线图加入此group
         //zr：画布
         //kAxis：坐标轴refresh
-        //
+        var theme;
         var CandlePainter = function (chartGroup,zr,kAxis,candleQueue) {
+            theme=zr.theme;
             //cWidth,cHeight,xHeight,yWidth
             chartGroup.id="chartGroup";
             chartGroup.cPainter=this;
@@ -306,7 +307,7 @@ define(
                 var style=this._getCandleStyle(index);
                 if(!candle){
                     //console.log("create candle");
-                    candle=new Candle({style:style});
+                    candle=new Candle({style:style},this.zr);
                     candle.zlevel=1;
                     candle.id="candle"+index;
                     candle.clickable=false;

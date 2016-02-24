@@ -5,7 +5,7 @@ define(
         var Base = require('../shape/Base');
         var LineShape = require('../shape/Line');
         var Text = require('../shape/Text');
-        
+        var theme;
         var KAxis = function (options,zr) {
             Base.call(this, options);
             this.zr=zr;
@@ -17,6 +17,7 @@ define(
             this.zlevel=2;
             this.xLineSpan=0;//x轴线之间的距离
             this.showPrice=true;//默认在左上角显示价格文字
+            theme=this.zr.theme;
         };
 
         KAxis.prototype =  {
@@ -25,7 +26,6 @@ define(
                 this.axisGroup=axisGroup;
             },
             buildPath : function (ctx, style) {
-                
                 //style.zrWidth
                 //style.zrHeight
                 //style.height
@@ -37,12 +37,15 @@ define(
                 //绘制坐标轴的线段 ____|
                 ctx.moveTo(0, style.zrHeight-style.height);
                 ctx.lineTo(style.zrWidth-style.width,style.zrHeight-style.height);
+                ctx.lineWidth=5;
                 ctx.lineTo(style.zrWidth-style.width,0);
-                ctx.strokeStyle='#ffffff';
+                ctx.strokeStyle=theme.KAxis_AxisLine_bg||'#8f0000';
                 ctx.stroke();
 
                 //填充展现数据的两个矩形，在移动时覆盖移出的图表
+                ctx.fillStyle=theme.KAxis_X_bg||"black";
                 ctx.fillRect(0, style.zrHeight-style.height,style.zrWidth,style.height);
+                ctx.fillStyle=theme.KAxis_Y_bg||"black";
                 ctx.fillRect(style.zrWidth-style.width,0,style.width,style.zrHeight);
 
                 //if(!style.priceLine)return;
@@ -87,8 +90,8 @@ define(
                             text:cnt,
                             x: x,
                             y: y,
-                            color:'white',
-                            textFont: '12px Arial'
+                            color:theme.KAxis_text_bg||'white',
+                            textFont: theme.KAxis_text_font||'12px Arial'
                         }
                     });
                 if(idNo!==undefined){
@@ -107,7 +110,7 @@ define(
                         yStart: 0,
                         xEnd: x,
                         yEnd: cPaint.pHeight,
-                        strokeColor: this._color||'#ffffff',
+                        strokeColor: theme.KAxis_XLine_bg||'#ff0000',
                         lineWidth: 1,
                         lineType:'dashed'
                     }
@@ -160,7 +163,7 @@ define(
                         yStart: y,
                         xEnd: cPaint.pWidth,
                         yEnd: y,
-                        strokeColor: this._color||'#ffffff',
+                        strokeColor: theme.KAxis_XLine_bg||'cyan',
                         lineWidth: 0.5,
                         lineType:'dashed'
                         

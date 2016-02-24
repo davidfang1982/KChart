@@ -155,7 +155,8 @@ define(function (require) {
                         xEnd: style.xEnd,
                         yEnd: style.yEnd,
                         strokeColor: style.tipRectColor||'blue',
-                        lineWidth: 3
+                        lineWidth: 1,
+                        lineCape:"round"
                     }
                 });
                 this.line.zlevel=2;
