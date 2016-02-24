@@ -244,24 +244,30 @@ define(function (require) {
                         if(dragging===pointMid)return;
 
                         //显示移动框
-                        var _rx,_ry,_rx1,_ry1,_outx=10,_outy=10,devicePixelRatio=window.devicePixelRatio||1,
-                        rect=100*devicePixelRatio;
-                        if(e.event.zrenderX!==undefined){
-                            _rectx=(x)-50;
-                            _recty=(y)+50;
-                            _rectx=Math.round(_rectx)*2;
-                            _recty=Math.round(_recty)*2-100;
-                            _rx=_rx1=_rectx;
-                            _ry=_recty-100;
-                            _ry1=_recty-line.position[1]-100;
-                        }else{
-                            _rectx=dragging.style.x+dragging.position[0]-50+drift;
-                            _recty=dragging.style.y+dragging.position[1]-50;
-                            _rx=_rx1=_rectx;
-                            _ry=_ry1=_recty;
+                        var _rx,_ry,_rx1,_ry1,//分别为读取chart和line的起始坐标
+                        _outx=10,_outy=10,//
+                        devicePixelRatio=window.devicePixelRatio||1,
+                        _width=chartGroup.cPainter.pWidth,
+                        rect=Math.min(_width,chartGroup.cPainter.pHeight)/5;//读取的范围
+                        if(e.event.zrenderX!==undefined){//移动端
+                            _rx=(x)-rect/2;
+                            _ry=(y)-rect/2;
+                            _rx=Math.round(_rx);
+                            _ry=Math.round(_ry);
+                            _rx1=_rx;
+                            _ry1=_ry-line.position[1];
+                            _width=_width*devicePixelRatio;
+                            rect=rect*devicePixelRatio;
+                            _rx1=_rx=_rx*devicePixelRatio;
+                            _ry=_ry*devicePixelRatio;
+                            _ry1=_ry1*devicePixelRatio;
+                        }else{//非移动端
+                            _rx=_rx1=dragging.style.x+dragging.position[0]-rect/2+drift;
+                            _ry=_ry1=dragging.style.y+dragging.position[1]-rect/2;
                         }
-                        if(_rx<rect||_ry<20){
-                            _outx=chartGroup.cPainter.pWidth*devicePixelRatio-rect-20;
+
+                        if(_rx<=rect*1.2&&_ry<=rect*1.2){//移动到左上角，切换到右上角显示
+                            _outx=(_width-rect)-10;
                         }
                         
                         var ctx=zr.painter.getLayers()[1].ctx;
@@ -351,7 +357,7 @@ define(function (require) {
                     style : {
                         x : x,
                         y : y,
-                        r : 40,
+                        r : 20,
                         brushType : 'both',
                         color : 'rgba(0, 0, 0, 0)',          // rgba supported
                         strokeColor : 'red',  // getColor from default palette
