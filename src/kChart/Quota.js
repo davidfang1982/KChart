@@ -55,7 +55,7 @@ define(
                     },
                 });
                 this.line.zlevel=2;
-                //this.line.position[1]=300;
+                this.line.position[1]=200;
                 this.chartGroup.addChild(this.line);
             }
         };

@@ -46,7 +46,7 @@ define(
             this.showEndPrev=this.showEnd;
 
             //x轴竖线之间的蜡烛个数
-            this.scaleStep=[1,2,3,4,6,8,12,24,32];
+            this.scaleStep=[1,2,3,4,6,8,10,12,14];
             //x轴竖线的个数
             this.xLineCount=6.5;
             
@@ -254,8 +254,8 @@ define(
                 }
 
                 // price of per y-px
-                this.ymax=ret.max+parseFloat(((ret.max-ret.min)/8).toFixed(4),10);
-                this.ymin=ret.min-parseFloat(((ret.max-ret.min)/8).toFixed(4),10);
+                this.ymax=ret.max+parseFloat(((ret.max-ret.min)/1.1).toFixed(4),10);
+                this.ymin=ret.min-parseFloat(((ret.max-ret.min)/1.1).toFixed(4),10);
                 this.PPYP=parseFloat(((this.ymax-this.ymin)/(this.pHeight)).toFixed(2),10);
             },
             getXPx:function(index){

@@ -5,8 +5,9 @@ define(
         var Rectangle = require('../shape/Rectangle');
         var LineShape = require('../shape/Line');
         var Text = require('../shape/Text');
-        var chartGroup;
+        var chartGroup,theme;
         var PriceLine = function (options,zr) {
+            theme=zr.theme;
             Group.call(this, options);
             chartGroup=zr.storage.get('chartGroup');
             this.buildPath(options.style);
@@ -31,7 +32,7 @@ define(
                             yStart: style.y,
                             xEnd: style.lineWidth,
                             yEnd: style.y,
-                            strokeColor: '#fff',
+                            strokeColor: theme.PriceLine_line_color||'#fff',
                             lineWidth: 1
                         }
                     });
@@ -50,7 +51,7 @@ define(
                             y: style.y-(style.rectHeight||20)/2,
                             width: (style.rectWidth||100)-5,
                             height: style.rectHeight||20,
-                            color:style.rectColor||'white'
+                            color:theme.PriceLine_rect_bg||'white'
                         }
                     });
                     this.rect.zlevel=2;
@@ -66,10 +67,10 @@ define(
                             text: style.price||'price',
                             x: style.lineWidth+5,
                             y: style.y-(style.rectHeight||20)/2,
-                            color:'red',
+                            color:theme.PriceLine_rect_color||'red',
                             textBaseline:'top',
                             strokeColor:'yellow',
-                            textFont: 'bold 14px Arial '
+                            textFont: theme.PriceLine_rect_font||'bold 14px Arial '
                          }
                      });
                     this.text.zlevel=2;

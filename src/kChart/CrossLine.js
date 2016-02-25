@@ -5,10 +5,10 @@ define(
         var Rectangle = require('../shape/Rectangle');
         var LineShape = require('../shape/Line');
         var Text = require('../shape/Text');
-        
-        var CrossLine = function (options,group) {
+        var theme;
+        var CrossLine = function (options,zr) {
             Base.call(this, options);
-            this.group=group;
+            theme=zr.theme;
             this.init=false;
             this.buildPath(options.style);
         };
@@ -50,7 +50,7 @@ define(
                             yStart: 0,
                             xEnd: style.x,
                             yEnd: style.lineHeight,
-                            strokeColor: style.tipRectColor,
+                            strokeColor: theme.CrossLine_line_color||"#C7BA99",
                             lineWidth: 1
                         }
                     });
@@ -70,7 +70,7 @@ define(
                             yStart: style.y,
                             xEnd: style.lineWidth,
                             yEnd: style.y,
-                            strokeColor: style.tipRectColor,
+                            strokeColor: theme.CrossLine_line_color||"#C7BA99",
                             lineWidth: 1
                         }
                     });
@@ -89,7 +89,7 @@ define(
                             y: style.y-(style.rectHeight||20)/2,
                             width: (style.rectWidth)-5,
                             height: style.rectHeight,
-                            color:style.rectColor||'white'
+                            color:theme.CrossLine_rect_bg||'white'
                         }
                     });
                     this.priceRect.zlevel=3;
@@ -106,7 +106,7 @@ define(
                             text: style.price||'price',
                             x: style.lineWidth+5,
                             y: style.y-(style.rectHeight)/2,
-                            color:style.textColor,
+                            color:theme.CrossLine_rect_color||"#FFF",
                             textBaseline:'top',
                             strokeColor:'yellow',
                             textFont: 'bold 14px Arial '
@@ -130,7 +130,7 @@ define(
                             y: style.lineHeight+2,
                             width: (style.rectWidth),
                             height: style.rectHeight,
-                            color:style.rectColor||'white'
+                            color:theme.CrossLine_rect_bg||'white'
                         }
                     });
                     this.timeRect.zlevel=3;
@@ -148,7 +148,7 @@ define(
                             text: style.time||'time',
                             x: style.x,
                             y: style.lineHeight+2,
-                            color:style.textColor,
+                            color:theme.CrossLine_rect_color||"#FFF",
                             textAlign:'center',
                             textBaseline:'top',
                             strokeColor:'yellow',
@@ -160,7 +160,7 @@ define(
                 }else{
                     this.timeText.style.x=style.x;
                     this.timeText.style.text=style.time;
-                    //强制刷新text，此处需要修改shape/Text getRect方法源码
+                    //强制刷新text
                     this.timeText.modSelf();
                 }
 
@@ -175,7 +175,7 @@ define(
                             y: 0,
                             width: style.tipRectWidth,
                             height: style.tipRectHeight,
-                            color:style.tipRectColor||'cyan'
+                            color:theme.CrossLine_tip_bg||"#FFF"
                         }
                     });
                     
@@ -187,7 +187,7 @@ define(
                  }
 
                  //
-                 //时间文字
+                 //tip文字
                 if(!this.tipText){
                     this.tipText=new Text({
                         id:"crossTip",
@@ -196,7 +196,7 @@ define(
                             text: style.time||'time',
                             x: ret.x,
                             y: ret.y,
-                            color:"#FFF",
+                            color:theme.CrossLine_tip_color||"#000",
                             textAlign:'start',
                             textBaseline:'top',
                             textFont: '14px Arial '

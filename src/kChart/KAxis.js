@@ -65,9 +65,9 @@ define(
                                 text:"",
                                 x: 10,
                                 y: 0,
-                                color:'#FFF',
+                                color:theme.KAxis_price_text_color||'#FFF',
                                 textBaseline:'top',
-                                textFont: style.priceFont||'14px Arial'
+                                textFont: theme.KAxis_price_text_font||'14px Arial'
                             }
                      });
                     this.priceText.zlevel=2;

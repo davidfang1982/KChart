@@ -2,7 +2,7 @@
     // appDir: './',
     baseUrl: '../src',
     // optimize: 'none',
-    name: 'zrender',
+    name: 'kChart',
     packages: [
         {
             name: 'zrender',

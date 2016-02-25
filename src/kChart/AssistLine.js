@@ -4,11 +4,12 @@ define(function (require) {
         var CircleShape = require('../shape/Circle');
         var LineShape = require('../shape/Line');
         var configRef;
-        var oldConfig={},chartGroup;
+        var oldConfig={},chartGroup,theme;
         
         var AssistLine = function (options,zr,config) {
             Group.call(this, options);
             this.zr=zr;
+            theme=zr.theme;
             //this.init=false;
             configRef=config;//传入一个配置对象，用于设置平移、十字线等互斥关系
             chartGroup=this.chartGroup=zr.storage.get('chartGroup');
@@ -154,8 +155,8 @@ define(function (require) {
                         yStart: style.yStart,
                         xEnd: style.xEnd,
                         yEnd: style.yEnd,
-                        strokeColor: style.tipRectColor||'blue',
-                        lineWidth: 1,
+                        strokeColor: theme.AssistLine_line_color||'blue',
+                        lineWidth: theme.AssistLine_line_width||1,
                         lineCape:"round"
                     }
                 });

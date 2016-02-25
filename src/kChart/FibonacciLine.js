@@ -10,6 +10,7 @@ define(
         var FibonacciLine = function (options,zr,config) {
             options.pName="fib";
             this.lines=[];//new Array();
+            
             AssistLine.call(this,options,zr,config);
             
         };
@@ -57,7 +58,8 @@ define(
                         yStart: y,
                         xEnd: max_X,
                         yEnd: y,
-                        strokeColor: 'blue',
+                        strokeColor: theme.FibonacciLine_line_color||'blue',
+                        textColor:theme.FibonacciLine_text_color||"blue",
                         lineWidth: 1,
                         text:text
                     }
