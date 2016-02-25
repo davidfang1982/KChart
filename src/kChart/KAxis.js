@@ -90,7 +90,7 @@ define(
                             text:cnt,
                             x: x,
                             y: y,
-                            color:theme.KAxis_text_bg||'white',
+                            color:theme.KAxis_text_color||'white',
                             textFont: theme.KAxis_text_font||'12px Arial'
                         }
                     });
@@ -110,7 +110,7 @@ define(
                         yStart: 0,
                         xEnd: x,
                         yEnd: cPaint.pHeight,
-                        strokeColor: theme.KAxis_XLine_bg||'#ff0000',
+                        strokeColor: theme.KAxis_XLine_color||'#ff0000',
                         lineWidth: 1,
                         lineType:'dashed'
                     }
@@ -163,7 +163,7 @@ define(
                         yStart: y,
                         xEnd: cPaint.pWidth,
                         yEnd: y,
-                        strokeColor: theme.KAxis_XLine_bg||'cyan',
+                        strokeColor: theme.KAxis_YLine_color||'cyan',
                         lineWidth: 0.5,
                         lineType:'dashed'
                         
@@ -200,7 +200,7 @@ define(
             
             //刷新x轴，平移时主要是根据偏移量drift来计算的位置
             refreshX:function(cPaint,movement,refresh){
-                if(movement!=undefined){
+                if(movement!==undefined){
                     if(movement===0&&!refresh)return;
                     //平移时，根据偏移量计算x轴左边偏移的部分，根据此变量重新绘制x轴竖线
                     this.xExcess=this.xExcessInit+(cPaint.drift%this.xLineSpan);

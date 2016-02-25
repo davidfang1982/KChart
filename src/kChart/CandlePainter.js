@@ -46,7 +46,7 @@ define(
             this.showEndPrev=this.showEnd;
 
             //x轴竖线之间的蜡烛个数
-            this.scaleStep=[1,2,3,4,6,8,10,12,14];
+            this.scaleStep=[1,2,3,4,6,8,12,24,32];
             //x轴竖线的个数
             this.xLineCount=6.5;
             

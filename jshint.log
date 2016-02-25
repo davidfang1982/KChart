@@ -1,0 +1,31 @@
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL145[39m[31m:[39m[33mC80[39m[31m][39m [33mW030[39m[31m:[39m [33mExpected an assignment or function call and instead saw an expression.[39m
+                current.priceEnd=chartGroup.cPainter.getPrice(current.lineYEOri[31m[7m)[27m[39m;
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL216[39m[31m:[39m[33mC30[39m[31m][39m [33mW004[39m[31m:[39m [33m'x' is already defined.[39m
+                        var x[31m[7m=[27m[39me.event.offsetX||e.event.zrenderX;
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL217[39m[31m:[39m[33mC30[39m[31m][39m [33mW004[39m[31m:[39m [33m'y' is already defined.[39m
+                        var y[31m[7m=[27m[39me.event.offsetY||e.event.zrenderY;
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL218[39m[31m:[39m[33mC34[39m[31m][39m [33mW004[39m[31m:[39m [33m'drift' is already defined.[39m
+                        var drift[31m[7m=[27m[39m0;//偏移量
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL255[39m[31m:[39m[33mC34[39m[31m][39m [33mW038[39m[31m:[39m [33m'x' used out of scope.[39m
+                            _rx=([31m[7mx[27m[39m)-rect/2;
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL256[39m[31m:[39m[33mC34[39m[31m][39m [33mW038[39m[31m:[39m [33m'y' used out of scope.[39m
+                            _ry=([31m[7my[27m[39m)-rect/2;
+Linting src/kChart/AssistLine.js ...[31mERROR[39m
+[31m[[39m[33mL267[39m[31m:[39m[33mC83[39m[31m][39m [33mW038[39m[31m:[39m [33m'drift' used out of scope.[39m
+                            _rx=_rx1=dragging.style.x+dragging.position[0]-rect/2+[31m[7md[27m[39mrift;
+Linting src/kChart/CandlePainter.js ...[31mERROR[39m
+[31m[[39m[33mL76[39m[31m:[39m[33mC53[39m[31m][39m [33mW030[39m[31m:[39m [33mExpected an assignment or function call and instead saw an expression.[39m
+                this.kAxis&&this.kAxis.refreshX(this[31m[7m)[27m[39m;
+Linting src/kChart/CandlePainter.js ...[31mERROR[39m
+[31m[[39m[33mL77[39m[31m:[39m[33mC53[39m[31m][39m [33mW030[39m[31m:[39m [33mExpected an assignment or function call and instead saw an expression.[39m
+                this.kAxis&&this.kAxis.refreshY(this[31m[7m)[27m[39m;
+Linting src/kChart/KAxis.js ...[31mERROR[39m
+[31m[[39m[33mL203[39m[31m:[39m[33mC28[39m[31m][39m [33mW041[39m[31m:[39m [33mUse '!==' to compare with 'undefined'.[39m
+                if(movement[31m[7m![27m[39m=undefined){
+

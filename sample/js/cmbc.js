@@ -1,38 +1,69 @@
-    kChart.init("main");
+    var _last;
+    //获取随机数据
+    function getRandom(last){
+        var ret=new Array();
+        for(var y=0;y<2;y++){
+            var t=(2033+(20*Math.random())).toFixed(2);
+            ret.push(t);
+        }
+        if(last)ret[1]=last;//收盘等于上一个的开盘价格
+        var min=Math.min(ret[0],ret[1]);
+        var max=Math.min(ret[0],ret[1]);
+        ret.push((max+10*Math.random()).toFixed(2));
+        min=Math.min(ret[1],ret[2]);
+        ret.push((min-10*Math.random()).toFixed(2));
+        _last=ret[0];//记录开盘价格
+        return ret;
+    }
+    //初始化数据
+    var data=new Array();
+    for(var i=0;i<100;i++){
+        var tmp=getRandom(_last);
+        data.push(tmp);
+        // console.log(tmp.join("|"));
+    }
+    //初始化div
+    kChart.init("main",{
+        data:data,
+        dataType:["20160118161955","M5","USDCHN"],
+        theme:{
+            background:"cyan"
+        }
+    });
+
     function scale(index){
-        window.kChart.scale(index);
+        kChart.scale(index);
     }
     function move(index){
-        window.kChart.move(index);
+        kChart.move(index);
     }
     var pLineFlag=true,cLineFlag=true,updateFlag=true;
     function priceLine(){
-         window.kChart.priceLine(pLineFlag);
+         kChart.priceLine(pLineFlag);
          pLineFlag=!pLineFlag;
     }
     function update(){
-        window.kChart.update(updateFlag);
-        updateFlag=!updateFlag;
+         kChart.update(getRandom());
     }
     function crossLine(){
-        window.kChart.crossLine(cLineFlag);
+        kChart.crossLine(cLineFlag);
          cLineFlag=!cLineFlag;
     }
     function assistLine(){
-        window.kChart.assistLine();
+        kChart.assistLine();
     }
     function deleteAssistLine(){
-        window.kChart.deleteAssistLine();
+        kChart.deleteAssistLine();
     }
     function addGoldLine(){
-        window.kChart.addGoldLine();
+        kChart.addGoldLine();
     }
     function quota(){
-        window.kChart.quota();
+        kChart.quota();
     }
     function delQuota(){
-        window.kChart.delQuota();
+        kChart.delQuota();
     } 
     function delGoldLine(){
-        window.kChart.delGoldLine();
+        kChart.delGoldLine();
     }

@@ -13,7 +13,7 @@ define(
 
         function(zrender) {
 
-        	function init(id){
+        	function init(id,options){
             var zr = zrender.init(document.getElementById(id));
             var Theme = require('zrender/kChart/Theme');
             var Candle = require('zrender/kChart/Candle');
@@ -27,8 +27,9 @@ define(
             var Group = require('zrender/Group');
             var CandlePainter = require('zrender/kChart/CandlePainter');
             var quota;
-            //set theme
-            new Theme(zr).fill();
+            //设置样式
+            new Theme(zr).fill(options.theme);
+            
             //配置对象 用于
             var config={
                 crossLineOpen:false,
@@ -66,13 +67,7 @@ define(
             chartGroup.panable=true;          
 
             //1.先设置初始数据
-            var data=new Array();
-            for(var i=0;i<100;i++){
-                var tmp=getRandom(_last);
-                data.push(tmp);
-                console.log(tmp.join("|"));
-            }
-            var candleQueue=new CandleQueue(["20160118161955","M1","USDCHN"], data);
+            var candleQueue=new CandleQueue(options.dataType, options.data);
             
             //2.创建CandlePainter对象
             var candlePainter=new CandlePainter(chartGroup,zr,kAxis,candleQueue);
@@ -91,28 +86,7 @@ define(
 
 
             //setTimeout(update,1000);
-            var updateId;
-            function update(){
-                candlePainter.update(getRandom(),0);
-                zr.render();
-               updateId=setTimeout(update,1000);
-            }
-            var _last;
-            function getRandom(last){
-                var ret=new Array();
-                for(var y=0;y<2;y++){
-                    var t=(2033+(20*Math.random())).toFixed(2);
-                    ret.push(t);
-                }
-                if(last)ret[1]=last;//收盘等于上一个的开盘价格
-                var min=Math.min(ret[0],ret[1]);
-                var max=Math.min(ret[0],ret[1]);
-                ret.push((max+10*Math.random()).toFixed(2));
-                min=Math.min(ret[1],ret[2]);
-                ret.push((min-10*Math.random()).toFixed(2));
-                _last=ret[0];//记录开盘价格
-                return ret;
-            }
+            
             var offsetX,zrenderX;
             zr.on("mousedown",function(param){
                 if(config.crossLineOpen){
@@ -222,12 +196,9 @@ define(
                 assistLine:addAssistLine,
                 deleteAssistLine:delAssistLine,
                 addGoldLine:addGoldLine,
-                update:function(flag){
-                    if(flag){
-                        setTimeout(update,1000);
-                    }else{
-                        clearTimeout(updateId);
-                    }
+                update:function(data){
+                    candlePainter.update(data,0);
+                    zr.render();
                 },
                 scale:function(index){
                     if(index===0)
@@ -278,7 +249,7 @@ define(
                          return;   
                         }
                         //创建十字线
-                        var crossLine = new CrossLine({
+                        crossLine = new CrossLine({
                             id:"crossLine",
                             style: {
                                 x:50,
@@ -312,7 +283,6 @@ define(
                 }
             };
         }
-        	
         	return init; 
         }
     );
@@ -320,7 +290,7 @@ define(
 	w.kChart={};
 	kChart.init=function(dom,options){
 		require(["kChart"],function(k){
-			k(dom);
+			k(dom,options);
 		});
-	}
+	};
 })(window);

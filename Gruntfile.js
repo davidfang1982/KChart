@@ -25,9 +25,9 @@
     },
     
     jshint: {     // 这是一个js代码验证工具
-      files: ['js/AssistLine.js','js/Candle.js','js/CandleDate.js',
-        'js/CandlePainter.js','js/CandleQueue.js','js/CrossLine.js',"js/FibonacciLine.js",
-        "js/KAxis.js","js/PriceLine.js","js/Quota.js"],     // 定义要检查的文件
+      files: ['src/kChart/AssistLine.js','src/kChart/Candle.js','src/kChart/CandleDate.js',
+        'src/kChart/CandlePainter.js','src/kChart/CandleQueue.js','src/kChart/CrossLine.js',"src/kChart/FibonacciLine.js",
+        "src/kChart/KAxis.js","src/kChart/PriceLine.js","src/kChart/Quota.js","src/kChart.js"],     // 定义要检查的文件
       options: {     // 配置JSHint     http://www.jshint.com/docs/
         //这里是覆盖JSHint默认配置的选项
         globals: {
@@ -36,6 +36,8 @@
           module: true,
           document: true
         }
+        // force :true,
+        //reporterOutput:"jshint.log"
       }
     }
   });
