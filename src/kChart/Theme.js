@@ -13,7 +13,7 @@ define(
                 this.zr.painter.root.style.background=this.zr.theme.background||"black";
             },
             init:function(){
-               // this.zr.theme={};return;
+               this.zr.theme={};return;
                this.zr.theme={
                     background:"cyan",//背景色
                     KAxis_X_bg:"#ffffff",//坐标X轴背景色
@@ -34,7 +34,7 @@ define(
                     CrossLine_rect_bg:"#34495e",//十字线时间、价格矩形背景色
                     CrossLine_rect_color:"#FFFFFF",//十字线时间、价格文字颜色
                     CrossLine_rect_font:"",//十字线时间、价格文字字体
-                    CrossLine_tip_bg:"#34495e",//十字线提示框背景色
+                    CrossLine_tip_bg:"#3F901E",//十字线提示框背景色
                     CrossLine_tip_color:"#FFFFFF",//十字线提示框字体颜色
                     CrossLine_tip_font:"",//十字线提示框字体
 

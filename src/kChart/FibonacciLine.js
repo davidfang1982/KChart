@@ -17,6 +17,12 @@ define(
 
         FibonacciLine.prototype =  {
             type: 'fibonacciLine',
+            disposeF:function(){
+                this.dispose();
+                for (var i = this.lines.length - 1; i >= 0; i--) {
+                    this.chartGroup.removeChild(this.lines[i]);
+                }
+            },
             //绘制黄金分割线
             buildLines:function(){
                 //this.pointBegin

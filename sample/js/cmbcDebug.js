@@ -12,7 +12,8 @@ require.config({
     w.kChart={};
     kChart.init=function(dom,options){
         require(["zrender/kChart"],function(k){
-            k(dom,options);
+            k.init(dom,options);
+            kChart=k;
         });
     }
 })(window);
@@ -44,8 +45,9 @@ for(var i=0;i<100;i++){
 kChart.init("main",{
     data:data,
     dataType:["20160118161955","M5","USDCHN"],
+    step:3,
     theme:{
-        background:"cyan"
+        background:"black"
     }
 });
 

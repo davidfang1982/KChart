@@ -23,6 +23,8 @@ define(function (require) {
                 //top和bottom 
                 //半径radius
                 //white为true时为白色
+
+                // ctx.clearRect(0,0,1000,800);
                 style.y=style.y||0;
                 this.hoverable=false;
                 if (!style.radius) {

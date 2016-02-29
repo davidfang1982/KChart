@@ -67,7 +67,7 @@ define(
                                 y: 0,
                                 color:theme.KAxis_price_text_color||'#FFF',
                                 textBaseline:'top',
-                                textFont: theme.KAxis_price_text_font||'14px Arial'
+                                textFont: theme.KAxis_price_text_font||'12px Arial'
                             }
                      });
                     this.priceText.zlevel=2;
@@ -94,6 +94,7 @@ define(
                             textFont: theme.KAxis_text_font||'12px Arial'
                         }
                     });
+                text.hoverable=false;
                 if(idNo!==undefined){
                     text.id=idNo;
                 }

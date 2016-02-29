@@ -106,7 +106,7 @@ define(
                             text: style.price||'price',
                             x: style.lineWidth+5,
                             y: style.y-(style.rectHeight)/2,
-                            color:theme.CrossLine_rect_color||"#FFF",
+                            color:theme.CrossLine_rect_color||"black",
                             textBaseline:'top',
                             strokeColor:'yellow',
                             textFont: 'bold 14px Arial '
@@ -148,7 +148,7 @@ define(
                             text: style.time||'time',
                             x: style.x,
                             y: style.lineHeight+2,
-                            color:theme.CrossLine_rect_color||"#FFF",
+                            color:theme.CrossLine_rect_color||"black",
                             textAlign:'center',
                             textBaseline:'top',
                             strokeColor:'yellow',

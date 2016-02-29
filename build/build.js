@@ -10,6 +10,10 @@
             main: 'zrender'
         }
     ],
+    wrap: {
+        startFile: "wrap/start.frag",
+        endFile: "wrap/end.frag"
+    },
     include:[
         'zrender/kChart/PriceLine',
         'zrender/kChart/CrossLine',

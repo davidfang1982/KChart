@@ -432,7 +432,7 @@ define(
          * @param  {string|module:zrender/Group|module:zrender/shape/Base} el
          */
         ZRender.prototype.stopAnimation = function (el) {
-            if (el.__animators) {
+            if (el&&el.__animators) {
                 var animators = el.__animators;
                 var len = animators.length;
                 for (var i = 0; i < len; i++) {

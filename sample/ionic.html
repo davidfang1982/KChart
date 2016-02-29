@@ -2,15 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Ionic Test</title>
+    <title>K线图测试</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
     <link href="css/ionic.min.css" rel="stylesheet">
 
   </head>
-  <body ng-app="todo"  ng-controller="TodoCtrl" style="background:black;">
+  <body ng-app="todo"  ng-controller="TodoCtrl">
       <div class="bar bar-header bar-dark">
-        <a class="button" onclick="quota();">M1</a>
+        <a class="button" onclick="delQuota();">M1</a>
         
         <button class="button icon ion-plus-round" onclick="scale(0);"></button> 
         <button class="button icon ion-minus-round" onclick="scale(1);"></button> 
@@ -32,36 +32,39 @@
         
       </div>
     
-      <div id="main" class="content has-header" style="background:black;height:1000px;" >
-          
+      <div id="outter" class="content has-header" style="background:black;height:1000px;" >
+          <div id="main">
+          </div>
       </div>
 
 
     <div class="tabs tabs-icon-top tabs-dark">
-      <a class="tab-item" href="#" onclick="delQuota();">
+      <a class="tab-item" href="#" onclick="quota();">
         <i class="icon ion-ios-settings-strong"></i>
         行情
       </a>
-      <a class="tab-item" href="#" style="color:yellowgreen;">
+      <a class="tab-item" href="#" style="color:yellowgreen;" onclick="update();">
         <i class="icon ion-ios-pulse-strong"></i>
         图表
       </a>
       <a class="tab-item" href="#" onclick="assistLine();">
         <i class="icon ion-ios-cart"></i>
-        交易
+        直线
       </a>
       <a class="tab-item" href="#" onclick="addGoldLine();">
         <i class="icon ion-android-time"></i>
-        历史
+        黄金线
       </a>
-      <a class="tab-item" href="#">
+      <a class="tab-item" href="#" onclick="deleteAssistLine();delGoldLine();">
         <i class="icon ion-gear-a"></i>
-        设置
+        删除
       </a>
     </div>
   <script src="js/jquery.js"></script>
   <script src="js/esl.js"></script>
+  <script src="js/hammer.min.js"></script>
   <script src="js/ionic.bundle.min.js"></script>
+  <script src="js/kChart.js"></script>
   <script src="js/cmbc.ionic.js"></script>
   </body>
 </html>

@@ -1,0 +1,9 @@
+(function(w){
+    w.kchart={};
+    kchart.init=function(dom,options){
+        require(["kChart"],function(k){
+            k.init(dom,options);
+            kchart=k;
+        });
+    }
+})(window);

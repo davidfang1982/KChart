@@ -23,47 +23,48 @@
         // console.log(tmp.join("|"));
     }
     //初始化div
-    kChart.init("main",{
+    kchart.init("main",{
         data:data,
-        dataType:["20160118161955","M5","USDCHN"],
+        step:3,
+        dataType:["20160118161955","M1","USDCHN"],
         theme:{
-            background:"cyan"
+            background:"black"
         }
     });
 
     function scale(index){
-        kChart.scale(index);
+        kchart.scale(index);
     }
     function move(index){
-        kChart.move(index);
+        kchart.move(index);
     }
     var pLineFlag=true,cLineFlag=true,updateFlag=true;
     function priceLine(){
-         kChart.priceLine(pLineFlag);
+         kchart.priceLine(pLineFlag);
          pLineFlag=!pLineFlag;
     }
     function update(){
-         kChart.update(getRandom());
+         kchart.update(getRandom());
     }
     function crossLine(){
-        kChart.crossLine(cLineFlag);
+        kchart.crossLine(cLineFlag);
          cLineFlag=!cLineFlag;
     }
     function assistLine(){
-        kChart.assistLine();
+        kchart.assistLine();
     }
     function deleteAssistLine(){
-        kChart.deleteAssistLine();
+        kchart.deleteAssistLine();
     }
     function addGoldLine(){
-        kChart.addGoldLine();
+        kchart.addGoldLine();
     }
     function quota(){
-        kChart.quota();
+        kchart.quota();
     }
     function delQuota(){
-        kChart.delQuota();
+        kchart.delQuota();
     } 
     function delGoldLine(){
-        kChart.delGoldLine();
+        kchart.delGoldLine();
     }
