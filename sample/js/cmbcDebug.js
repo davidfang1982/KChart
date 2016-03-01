@@ -14,6 +14,41 @@ require.config({
         require(["zrender/kChart"],function(k){
             k.init(dom,options);
             kChart=k;
+            // kChart.zr.on("mousedown",function(param){
+            //                 if(kChart.config.crossLineOpen){
+            //                     kChart.crossLineChange(param.event.layerX||param.event.x||param.event.zrenderX,
+            //                         param.event.layerY||param.event.x||param.event.zrenderY);
+            //                     return;//不能移动
+            //                 }
+            //                 if(kChart.config.assistLineMove){
+            //                     kChart.config.moveflag=false;
+            //                     return;
+            //                 }
+            //                 kChart.config.moveflag=true;
+            //                 offsetX=param.event.offsetX;
+            //                 zrenderX=param.event.zrenderX;
+            //                 $("#"+id+">div").css("cursor","col-resize");
+            //             });
+            //             kChart.zr.on("mousemove",function(param){
+            //                 if(kChart.config.crossLineOpen||kChart.config.assistLineMove)return;//不能移动
+            //                 if(kChart.config.moveflag){
+            //                     var movement=param.event.movementX;
+            //                     movement=(movement==undefined||isNaN(movement))?(param.event.offsetX-offsetX):movement;
+            //                     movement=(movement==undefined||isNaN(movement))?(param.event.zrenderX-zrenderX):movement;
+            //                     var flag=kChart.candlePainter.translate(movement);
+                                
+            //                     zrenderX=param.event.zrenderX;
+            //                     offsetX=param.event.offsetX;
+            //                     flag||kChart.zr.render();
+            //                 }
+            //             });
+                    
+            //             kChart.zr.on("mouseup",function(param){
+            //                 if(kChart.config.crossLineOpen||kChart.config.assistLineMove)return;//不能移动
+            //                 //setTimeout(kchart.animation,100);
+            //                 kChart.config.moveflag=false;
+            //                 $("#main>div").css("cursor","");
+            //             });
         });
     }
 })(window);
@@ -87,3 +122,4 @@ function scale(index){
     function delGoldLine(){
         kChart.delGoldLine();
     }
+    

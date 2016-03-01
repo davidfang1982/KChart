@@ -287,7 +287,7 @@ define(function (require) {
                        if(dragging!==pointMid&&dragging!==pointBegin&&dragging!==pointEnd)
                             return;
                        
-                        configRef.assistLineFlag=false;
+                        configRef.assistLineMove=false;
                         configRef.moveflag=false;
                         
                         //拖得结束，恢复crossLineOpen配置
@@ -346,7 +346,7 @@ define(function (require) {
 
                 this.zr.on("dragstart",function(e){
                         dragging=e.target;
-                        configRef.assistLineFlag=true;
+                        configRef.assistLineMove=true;
                         configRef.moveflag=false;
                 });
                 this.buildLines();

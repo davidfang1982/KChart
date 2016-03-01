@@ -82,6 +82,9 @@ define(
                     data[1]+" "+
                     data[2]+" "+data[3];
             },
+            _debug:function(txt){
+                this.priceText.style.text=txt;
+            },
             //
             //创建文字
             _createText:function(x,y,cnt,idNo){
@@ -170,6 +173,7 @@ define(
                         
                     }
                 });
+                shape.hoverable=false;
                 this.axisGroup.addChild(shape);
                 return shape;
             },

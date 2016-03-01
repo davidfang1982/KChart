@@ -87,7 +87,7 @@ define(
                         style: {
                             x: style.lineWidth,
                             y: style.y-(style.rectHeight||20)/2,
-                            width: (style.rectWidth)-5,
+                            width: (style.rectWidth)-1,
                             height: style.rectHeight,
                             color:theme.CrossLine_rect_bg||'white'
                         }
@@ -109,7 +109,7 @@ define(
                             color:theme.CrossLine_rect_color||"black",
                             textBaseline:'top',
                             strokeColor:'yellow',
-                            textFont: 'bold 14px Arial '
+                            textFont: theme.CrossLine_rect_font||'normal 12px Arial '
                          }
                      });
                     this.priceText.zlevel=3;
@@ -152,7 +152,7 @@ define(
                             textAlign:'center',
                             textBaseline:'top',
                             strokeColor:'yellow',
-                            textFont: 'bold 14px Arial '
+                            textFont: theme.CrossLine_rect_font||'normal 12px Arial '
                          }
                      });
                     this.timeText.zlevel=3;

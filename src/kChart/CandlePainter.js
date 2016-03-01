@@ -337,7 +337,8 @@ define(
             //初始时：绘制0~candleCount个即可
             //缩放时: candleCount变了，创建从candleCount~candleCountNew
             _paintCandle:function(begin,end){
-                for(var i=begin;i<end;i++){
+                console.log(begin+ "  "+end);
+                for(var i=begin;i<=end;i++){
                     //不能一直创建candle啊，否则内存撑不住，最多创建candleCount个
                     //修改因此candle的id
                     //一直修改id的话，也占用map啊，不能设置
@@ -447,6 +448,9 @@ define(
             },
             getDrift:function(){
                 return this.drift;
+            },
+            _debug:function(txt){
+                this.kAxis._debug(txt);
             }
         };
 

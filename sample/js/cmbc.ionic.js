@@ -36,7 +36,7 @@
         return ret;
     }
     var data=new Array();
-    for(var i=0;i<100;i++){
+    for(var i=0;i<200;i++){
         var tmp=getRandom(_last);
         data.push(tmp);
         // console.log(tmp.join("|"));
@@ -98,16 +98,4 @@
         init();
 
     }
-    var myElement = document.getElementById('main');
-    var hammertime = new Hammer(myElement);
-    hammertime.add(new Hammer.pinch());
-    hammertime.on('swipe', function(ev) {
-        console.log(ev);
-        kchart.swipe(ev.deltaX);
-    });
-    hammertime.on('pinchend', function(ev) {
-        var size=Math.round(ev.scale),flag=size>0?0:1;
-        for(var x=0;x<=size;x++){
-            kchart.scale(flag);
-        }
-    });
+    

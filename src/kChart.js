@@ -29,6 +29,7 @@ define(
             //初始化
         	kchart.init=function(id,options){
                 var offsetX,zrenderX,current=this;
+                this.id=id;
                 this.assistLineIndex=0;
                 this.fibonacciLineIndex=0;
                 var zr=this.zr= zrender.init(document.getElementById(id));
@@ -47,7 +48,7 @@ define(
                     style : {
                         zrWidth : zr.getWidth(),
                         zrHeight : zr.getHeight(),
-                        width : 80,
+                        width : 50,
                         height : 30,
                         strokeColor : '#000000'
                     },
@@ -80,64 +81,110 @@ define(
 
                 zr.render();
             
+                var mobile=/mobile|tablet|ip(ad|hone|od)|android|silk/i.test(window.navigator.userAgent);
+                if(!mobile){
+                    zr.on("mousedown",function(param){
+                        if(config.crossLineOpen){
+                            current.crossLineChange(param.event.layerX||param.event.x||param.event.zrenderX,
+                                param.event.layerY||param.event.x||param.event.zrenderY);
+                            return;//不能移动
+                        }
+                        if(config.assistLineMove){
+                            config.moveflag=false;
+                            return;
+                        }
+                        config.moveflag=true;
+                        offsetX=param.event.offsetX;
+                        zrenderX=param.event.zrenderX;
+                        $("#"+id+">div").css("cursor","col-resize");
+                    });
+                    zr.on("mousemove",function(param){
+                        if(config.crossLineOpen||config.assistLineMove)return;//不能移动
+                        if(config.moveflag){
+                            var movement=param.event.movementX;
+                            movement=(movement==undefined||isNaN(movement))?(param.event.offsetX-offsetX):movement;
+                            movement=(movement==undefined||isNaN(movement))?(param.event.zrenderX-zrenderX):movement;
+                            var flag=candlePainter.translate(movement);
+                            
+                            zrenderX=param.event.zrenderX;
+                            offsetX=param.event.offsetX;
+                            flag||zr.render();
+                        }
+                    });
                 
-                zr.on("mousedown",function(param){
-                    if(config.crossLineOpen){
-                        current.crossLineChange(param.event.layerX||param.event.x||param.event.zrenderX,
-                            param.event.layerY||param.event.x||param.event.zrenderY);
-                        return;//不能移动
-                    }
-                    if(config.assistLineMove){
+                    zr.on("mouseup",function(param){
+                        if(config.crossLineOpen||config.assistLineMove)return;//不能移动
+                        //setTimeout(kchart.animation,100);
                         config.moveflag=false;
+                        $("#"+id+">div").css("cursor","");
+                    });
+                }else{
+                    var myElement = document.getElementById(id);
+                    if(!window.Hammer){
                         return;
                     }
-                    config.moveflag=true;
-                    offsetX=param.event.offsetX;
-                    zrenderX=param.event.zrenderX;
-                    $("#"+id+">div").css("cursor","col-resize");
-                });
-                zr.on("mousemove",function(param){
-                    if(config.crossLineOpen||config.assistLineMove)return;//不能移动
-                    if(config.moveflag){
-                        var movement=param.event.movementX;
-                        movement=(movement==undefined||isNaN(movement))?(param.event.offsetX-offsetX):movement;
-                        movement=(movement==undefined||isNaN(movement))?(param.event.zrenderX-zrenderX):movement;
-                        var flag=candlePainter.translate(movement);
-                        
-                        zrenderX=param.event.zrenderX;
-                        offsetX=param.event.offsetX;
-                        flag||zr.render();
-                    }
-                });
-            
-                zr.on("mouseup",function(param){
-                    if(config.crossLineOpen||config.assistLineMove)return;//不能移动
-                    //setTimeout(kchart.animation,100);
-                    config.moveflag=false;
-                    $("#main>div").css("cursor","");
-                });
-
+                    //需要引入Hammer.js
+                    var hammertime = new Hammer(myElement);
+                    hammertime.add(new Hammer.Pinch());
+                    hammertime.on('swipe', function(ev) {
+                        kchart.swipe(ev.deltaX);//滑动
+                    });
+                    var scale=100;
+                    hammertime.on('pinchend', function(ev) {
+                        scale=100;//初始是100
+                    });
+                    hammertime.on('pinchmove', function(ev) {
+                        var tmp=Math.round(ev.scale*100);
+                        var flag=ev.scale>1?1:0;
+                        var seg=tmp%100;
+                        //kchart._debug(flag+"mv"+(tmp-scale));
+                        if(Math.abs(tmp-scale)>10){
+                            kchart.scale(tmp-scale);
+                            scale=tmp;
+                        }
+                    });
+                    var panX=0;
+                    hammertime.on('panstart', function(ev) {
+                        panX=0;
+                    });
+                    hammertime.on('pan', function(ev) {
+                        kchart.pan(ev.deltaX-panX);
+                        panX=ev.deltaX;
+                    });
+                    hammertime.on('tap', function(ev) {
+                        //console.log(ev.center.x,ev.center.y);
+                        kchart.crossLineChange(ev.center.x,ev.center.y);
+                    });
+                }
 
             };
 
+            kchart.pan=function(movement){
+                if(this.config.crossLineOpen||this.config.assistLineMove)return;//不能移动
+                var flag=kchart.candlePainter.translate(movement);
+                flag||kchart.zr.render();
+            },
+
             kchart.swipe=function(x){
-                animationSize=x*1;//偏移长度
+                if(this.config.crossLineOpen||this.config.assistLineMove)return;//不能移动
+                animationSize=x*2;//偏移长度
                 (x>0)?(moveDirect=true):(moveDirect=false);//偏移方向,moveDirect 122=true=右移
-                setTimeout(kchart.animation,20);
+                setTimeout(kchart.animation);
             },
             kchart.animation=function(){
                 var per=(moveDirect?-1:1);
-                var size=animationSize+(10*per);
+                var size=animationSize+(20*per);
                 if((moveDirect&&size<=0)||(!moveDirect&&size>=0)){
                     return;
                 }
                 animationSize=size;
-                var flag=kchart.candlePainter.translate(10*-per);
+                var flag=kchart.candlePainter.translate(20*-per);
                 flag||kchart.zr.render();
-                setTimeout(kchart.animation,20);
+                setTimeout(kchart.animation);
             },
             //设置十字线的位置
             kchart.crossLineChange=function(x,y){
+                if(!this.config.crossLineOpen)return;
                 var crossLine=this.zr.storage.get("crossLine");
                 //获取十字线吸附状态
                 var ret=this.candlePainter.adsorb(x,y,true);
@@ -217,8 +264,8 @@ define(
             };
             //缩放
             kchart.scale=function(index){
-                if(index===0)
-                    this.candlePainter.less();
+                if(index>0)
+                    this.candlePainter.less();//放大
                 else
                     this.candlePainter.more();
                 this.zr.render();
@@ -250,7 +297,7 @@ define(
                 }else{
                     //目前只是隐藏，安全删除需要于移除事件，delete对象，从zrstroge删除等操作
                     priceLine.hide();
-                    this.zr.render();
+                    this.zr.refresh();
                 }
             },
             //添加十字线
@@ -285,6 +332,10 @@ define(
                     this.zr.render();
                     this.config.crossLineOpen=false;
                 }
+            },
+            kchart._debug=function(txt){
+                this.candlePainter._debug(txt);
+                this.zr.render();
             },
             //添加指标
             kchart.quota=function(){

@@ -17,7 +17,7 @@
     }
     //初始化数据
     var data=new Array();
-    for(var i=0;i<100;i++){
+    for(var i=0;i<200;i++){
         var tmp=getRandom(_last);
         data.push(tmp);
         // console.log(tmp.join("|"));
