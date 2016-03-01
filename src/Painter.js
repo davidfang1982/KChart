@@ -60,6 +60,7 @@
             root.style['-webkit-user-select'] = 'none';
             root.style['user-select'] = 'none';
             root.style['-webkit-touch-callout'] = 'none';
+            root.style['-webkit-transform'] = 'translateZ(0)';
 
             /**
              * @type {module:zrender/Storage}

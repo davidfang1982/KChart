@@ -67,7 +67,7 @@ define(function (require) {
 
                 // ctx.save();
                 // ctx.fillStyle="#fff";
-                // ctx.fillText(this.IBoundingRect,rectMoveto.x,30);
+                // ctx.fillText(Math.round(style.index),style.x-5,30);
                 // ctx.restore();
                 return;
             },

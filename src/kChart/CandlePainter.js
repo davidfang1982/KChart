@@ -200,7 +200,7 @@ define(
                 this.step=index;
                 this._calcWidth(index);
                 this.candleWidth=this.radius*2+this.interval;//蜡烛宽度+间隔
-                this.candleCount=parseInt(this.pWidth/this.candleWidth,10)+2;//可容纳的蜡烛数量
+                this.candleCount=parseInt(this.pWidth/this.candleWidth,10)+3;//可容纳的蜡烛数量
                 this.showEnd=this.candleCount/2+1;
                 this.showEnd=parseInt(this.showEnd,10);
             },
@@ -328,7 +328,7 @@ define(
             //根据Queue中的位置获取对应的candle，
             //主要用于更新后获取相关数据，若不在视图内，可能为空
             getCandleByIndex:function(index){
-                if(index>=this.candleCount){
+                if(index>this.candleCount){
                         index=index%this.candleCount;
                 }
                 return this.zr.storage.get("candle"+index);
@@ -337,13 +337,13 @@ define(
             //初始时：绘制0~candleCount个即可
             //缩放时: candleCount变了，创建从candleCount~candleCountNew
             _paintCandle:function(begin,end){
-                console.log(begin+ "  "+end);
-                for(var i=begin;i<=end;i++){
+                //console.log(begin+ "  "+end);
+                for(var i=begin;i<end;i++){
                     //不能一直创建candle啊，否则内存撑不住，最多创建candleCount个
                     //修改因此candle的id
                     //一直修改id的话，也占用map啊，不能设置
                     //通过计算获取
-                    if(i>=this.candleCount){
+                    if(i>this.candleCount){
                         this._getCandle(i,i%this.candleCount);
                     }else{
                         this._getCandle(i);
