@@ -166,8 +166,9 @@ define(
             },
 
             kchart.swipe=function(x){
+                //console.log(20*-per);
                 if(this.config.crossLineOpen||this.config.assistLineMove)return;//不能移动
-                animationSize=x*2;//偏移长度
+                animationSize=x*3;//偏移长度
                 (x>0)?(moveDirect=true):(moveDirect=false);//偏移方向,moveDirect 122=true=右移
                 setTimeout(kchart.animation);
             },
@@ -178,6 +179,7 @@ define(
                     return;
                 }
                 animationSize=size;
+
                 var flag=kchart.candlePainter.translate(20*-per);
                 flag||kchart.zr.render();
                 setTimeout(kchart.animation);
@@ -265,9 +267,9 @@ define(
             //缩放
             kchart.scale=function(index){
                 if(index>0)
-                    this.candlePainter.less();//放大
+                    this.candlePainter.more();//放大
                 else
-                    this.candlePainter.more();
+                    this.candlePainter.less();
                 this.zr.render();
             },
             //平移

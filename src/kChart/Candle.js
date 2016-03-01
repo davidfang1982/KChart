@@ -66,8 +66,8 @@ define(function (require) {
                 ctx.stroke();
 
                 // ctx.save();
-                // ctx.fillStyle="#fff";
-                // ctx.fillText(Math.round(style.index),style.x-5,30);
+                // ctx.fillStyle="yellow";
+                // ctx.fillText(Math.round(style.text),style.x-5,30);
                 // ctx.restore();
                 return;
             },

@@ -36,7 +36,7 @@
         kchart.scale(index);
     }
     function move(index){
-        kchart.move(index);
+        kchart.swipe(index);
     }
     var pLineFlag=true,cLineFlag=true,updateFlag=true;
     function priceLine(){

@@ -56,7 +56,7 @@ define(
             this.scaleCallback=[];//new Array();
             //可以移动
             this.moveable=true;
-
+            this.candleCountMax=this.scaleStep[this.scaleStep.length-1]*6.5;
             //
             this.adsorbY=20;
         };
@@ -139,7 +139,8 @@ define(
                 this.drift=tmp;
 
                 //计算一下显示的，设置y轴的数据 yMax和PPYP
-                var size=parseInt((refresh?movementX:this.chartGroup.position[0])/this.candleWidth,10);
+                //fix bug 20160301
+                var size=parseInt((refresh?movementX:tmp)/this.candleWidth,10);
                 if(size<this.candleCount/2){
                     this.showBegin=0;
                     this.showEnd=this.candleCount/2+size+1;
@@ -186,12 +187,14 @@ define(
                 this.radius=perCandle;//蜡烛的宽度
                 this.kAxis.xSpan=xSpan;
             },
-            less:function(){
+            //放大
+            more:function(){
                 if(this.step===0)
                     return;
                 this.scale(this.step-1);
             },
-            more:function(){
+            //缩小
+            less:function(){
                 if(this.step===this.scaleStep.length-1)
                     return;
                 this.scale(this.step+1);
@@ -206,7 +209,7 @@ define(
             },
             scale:function(index){
                 //清除多余candle的显示
-                for(var i=0;i<this.candleCount;i++){
+                for(var i=0;i<this.candleCountMax;i++){
                      var candle=this.zr.storage.get("candle"+i);
                      if(candle){
                         candle.invisible=true;//true不绘制图形
@@ -295,6 +298,7 @@ define(
                 style.top=this.getYPx(data[2]);//最高
                 style.bottom=this.getYPx(data[3]);//最低
                 style.radius=this.radius;
+                //style.text=index;//调试使用
                 return style;
             },
             
@@ -309,7 +313,7 @@ define(
                     //console.log("create candle");
                     candle=new Candle({style:style},this.zr);
                     candle.zlevel=1;
-                    candle.id="candle"+index;
+                    candle.id="candle"+id;
                     candle.clickable=false;
                     candle.bind("click",function(e){
                         //alert(index);
