@@ -170,7 +170,7 @@ define(
                 if(this.config.crossLineOpen||this.config.assistLineMove)return;//不能移动
                 animationSize=x*3;//偏移长度
                 (x>0)?(moveDirect=true):(moveDirect=false);//偏移方向,moveDirect 122=true=右移
-                setTimeout(kchart.animation);
+                setTimeout(kchart.animation,1000/60);
             },
             kchart.animation=function(){
                 var per=(moveDirect?-1:1);
@@ -182,7 +182,7 @@ define(
 
                 var flag=kchart.candlePainter.translate(20*-per);
                 flag||kchart.zr.render();
-                setTimeout(kchart.animation);
+                setTimeout(kchart.animation,1000/60);
             },
             //设置十字线的位置
             kchart.crossLineChange=function(x,y){
